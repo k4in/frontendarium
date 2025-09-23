@@ -6,7 +6,7 @@ export const Route = createFileRoute('/')({
 
 function Index() {
   return (
-    <div className="h-full border rounded p-2">
+    <div className="h-full rounded-xl p-4 bg-card border">
       <h3>Welcome Home!</h3>
     </div>
   );
