@@ -1,6 +1,7 @@
-import { Link, Outlet, createRootRouteWithContext } from '@tanstack/react-router';
+import { Outlet, createRootRouteWithContext } from '@tanstack/react-router';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { QueryClient } from '@tanstack/react-query';
+import Header from '@/components/header';
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -11,19 +12,10 @@ export const Route = createRootRouteWithContext<{
 function RootComponent() {
   return (
     <>
-      <div className="p-2 flex gap-2 text-lg">
-        <Link
-          to="/"
-          activeProps={{
-            className: 'font-bold',
-          }}
-          activeOptions={{ exact: true }}
-        >
-          Home
-        </Link>
-      </div>
-      <hr />
-      <Outlet />
+      <Header />
+      <main className="px-4 md:px-20 py-2 md:py-10">
+        <Outlet />
+      </main>
       <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
     </>
   );
