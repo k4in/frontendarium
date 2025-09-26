@@ -153,3 +153,7 @@
     radial-gradient(100vw 100vh at 50% 50%, var(--background-fill), var(--background-fill));
   background-color: var(--background);
 }
+
+.card {
+  @apply rounded-xl p-4 bg-card/85 backdrop-blur border shadow;
+}
