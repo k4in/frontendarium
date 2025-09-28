@@ -7,7 +7,7 @@ export const Route = createFileRoute('/components')({
 function RouteComponent() {
   return (
     <div className="grid grid-cols-[12rem_1fr] h-full">
-      <nav className="flex flex-col gap-4 border-r py-2 md:py-10">
+      <nav className="flex flex-col gap-2 border-r py-2 md:py-10">
         <Link
           to="/components/button"
           activeProps={{

@@ -43,6 +43,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         INTERACTIVE_STYLES,
         sizeClasses[size],
         variantClasses[variant],
+        variant === 'ghost' && isLoading && 'bg-muted',
         className
       )}
       disabled={isDisabled}
@@ -50,7 +51,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {...props}
     >
       {isLoading && (
-        <span className="absolute inset-0 flex items-center justify-center text-primary-foreground" aria-hidden="true">
+        <span
+          className={cn(
+            'absolute inset-0 flex items-center justify-center text-primary-foreground',
+            variant === 'ghost' && isLoading && 'text-primary'
+          )}
+          aria-hidden="true"
+        >
           <LoaderIcon className="size-4 animate-spin" />
         </span>
       )}
