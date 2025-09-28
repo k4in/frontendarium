@@ -31,6 +31,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   { type = 'button', children, className, isLoading, variant = 'primary', size = 'default', disabled, ...props },
   ref
 ) {
+  const isDisabled = disabled || isLoading;
+
   return (
     <button
       ref={ref}
@@ -43,12 +45,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         variantClasses[variant],
         className
       )}
-      disabled={disabled || isLoading}
+      disabled={isDisabled}
       aria-busy={isLoading}
       {...props}
     >
       {isLoading && (
-        <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+        <span className="absolute inset-0 flex items-center justify-center text-primary-foreground" aria-hidden="true">
           <LoaderIcon className="size-4 animate-spin" />
         </span>
       )}
