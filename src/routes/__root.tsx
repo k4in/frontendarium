@@ -13,9 +13,9 @@ function RootComponent() {
   return (
     <>
       <Header />
-      <main className="px-4 md:px-20 py-2 md:py-10">
+      <div className="container mx-auto">
         <Outlet />
-      </main>
+      </div>
       <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
     </>
   );

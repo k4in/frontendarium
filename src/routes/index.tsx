@@ -67,7 +67,7 @@ function Index() {
   const { data: cryptoData } = useSuspenseQuery(query);
 
   return (
-    <div className="h-full space-y-6">
+    <div className="h-full space-y-6 py-2 md:py-10">
       <h3>Welcome Home!</h3>
       <div className="grid grid-cols-5 gap-4">
         {cryptoData.length &&
