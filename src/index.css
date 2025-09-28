@@ -155,5 +155,5 @@
 }
 
 .card {
-  @apply rounded-xl p-4 bg-card/85 backdrop-blur border shadow;
+  @apply rounded p-4 bg-card/85 backdrop-blur border shadow;
 }

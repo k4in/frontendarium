@@ -1,55 +1,63 @@
-import { type ReactNode, type ButtonHTMLAttributes } from 'react';
+import { type ReactNode, type ButtonHTMLAttributes, forwardRef } from 'react';
 import { cn } from '@/lib/utils/cn';
 import { INTERACTIVE_STYLES } from '@/lib/base-styles';
+import { LoaderIcon } from 'lucide-react';
 
 type ButtonVariants = 'primary' | 'ghost' | 'destructive';
-type ButtonSizes = 'default' | 'icon';
+type ButtonSizes = 'default' | 'large' | 'icon' | 'bigIcon';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariants;
   size?: ButtonSizes;
   className?: string;
+  isLoading?: boolean;
   children: ReactNode;
 };
 
-function getVariantStyles(variant: ButtonVariants) {
-  switch (variant) {
-    case 'primary':
-      return 'bg-primary text-primary-foreground hover:bg-primary/85';
-    case 'ghost':
-      return 'bg-transparent text-foreground hover:bg-muted';
-    case 'destructive':
-      return 'bg-destructive text-destructive-foreground hover:bg-destructive/85';
+const variantClasses: Record<ButtonVariants, string> = {
+  primary: 'bg-primary text-primary-foreground hover:bg-primary/85',
+  ghost: 'bg-transparent text-foreground hover:bg-muted',
+  destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/85',
+};
 
-    default:
-      return 'bg-primary text-primary-foreground hover:bg-primary/85';
-  }
-}
+const sizeClasses: Record<ButtonSizes, string> = {
+  default: 'h-9 px-3 text-base',
+  large: 'h-12 px-4 text-lg',
+  icon: 'size-9 text-base',
+  bigIcon: 'size-12 text-lg',
+};
 
-export function Button({
-  type = 'button',
-  children,
-  className,
-  variant = 'primary',
-  size = 'default',
-  ...props
-}: ButtonProps) {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { type = 'button', children, className, isLoading, variant = 'primary', size = 'default', disabled, ...props },
+  ref
+) {
   return (
     <button
+      ref={ref}
       type={type}
       className={cn(
-        'flex items-center justify-center rounded-md transition-colors font-semibold text-base',
-        variant !== 'ghost' && 'shadow-md',
+        'relative flex items-center justify-center rounded transition-colors font-semibold',
+        variant !== 'ghost' && 'shadow',
         INTERACTIVE_STYLES,
-        'disabled:text-muted-foreground disabled:cursor-not-allowed',
-        size === 'default' && 'h-8 px-3',
-        size === 'icon' && 'size-8',
-        getVariantStyles(variant),
+        sizeClasses[size],
+        variantClasses[variant],
         className
       )}
+      disabled={disabled || isLoading}
+      aria-busy={isLoading}
       {...props}
     >
-      {children}
+      {isLoading && (
+        <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+          <LoaderIcon className="size-4 animate-spin" />
+        </span>
+      )}
+      <span className={cn(isLoading && 'opacity-0')}>{children}</span>
+      {isLoading && (
+        <span className="sr-only" aria-live="polite">
+          Loading
+        </span>
+      )}
     </button>
   );
-}
+});
