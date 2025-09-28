@@ -9,37 +9,44 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ComponentsRouteRouteImport } from './routes/components/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ComponentsIndexRouteImport } from './routes/components/index'
 import { Route as ComponentsSelectRouteImport } from './routes/components/select'
 import { Route as ComponentsButtonRouteImport } from './routes/components/button'
 
+const ComponentsRouteRoute = ComponentsRouteRouteImport.update({
+  id: '/components',
+  path: '/components',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComponentsIndexRoute = ComponentsIndexRouteImport.update({
-  id: '/components/',
-  path: '/components/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => ComponentsRouteRoute,
 } as any)
 const ComponentsSelectRoute = ComponentsSelectRouteImport.update({
-  id: '/components/select',
-  path: '/components/select',
-  getParentRoute: () => rootRouteImport,
+  id: '/select',
+  path: '/select',
+  getParentRoute: () => ComponentsRouteRoute,
 } as any)
 const ComponentsButtonRoute = ComponentsButtonRouteImport.update({
-  id: '/components/button',
-  path: '/components/button',
-  getParentRoute: () => rootRouteImport,
+  id: '/button',
+  path: '/button',
+  getParentRoute: () => ComponentsRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/components': typeof ComponentsRouteRouteWithChildren
   '/components/button': typeof ComponentsButtonRoute
   '/components/select': typeof ComponentsSelectRoute
-  '/components': typeof ComponentsIndexRoute
+  '/components/': typeof ComponentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -50,18 +57,25 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/components': typeof ComponentsRouteRouteWithChildren
   '/components/button': typeof ComponentsButtonRoute
   '/components/select': typeof ComponentsSelectRoute
   '/components/': typeof ComponentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/components/button' | '/components/select' | '/components'
+  fullPaths:
+    | '/'
+    | '/components'
+    | '/components/button'
+    | '/components/select'
+    | '/components/'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/components/button' | '/components/select' | '/components'
   id:
     | '__root__'
     | '/'
+    | '/components'
     | '/components/button'
     | '/components/select'
     | '/components/'
@@ -69,13 +83,18 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ComponentsButtonRoute: typeof ComponentsButtonRoute
-  ComponentsSelectRoute: typeof ComponentsSelectRoute
-  ComponentsIndexRoute: typeof ComponentsIndexRoute
+  ComponentsRouteRoute: typeof ComponentsRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/components': {
+      id: '/components'
+      path: '/components'
+      fullPath: '/components'
+      preLoaderRoute: typeof ComponentsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -85,33 +104,47 @@ declare module '@tanstack/react-router' {
     }
     '/components/': {
       id: '/components/'
-      path: '/components'
-      fullPath: '/components'
+      path: '/'
+      fullPath: '/components/'
       preLoaderRoute: typeof ComponentsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ComponentsRouteRoute
     }
     '/components/select': {
       id: '/components/select'
-      path: '/components/select'
+      path: '/select'
       fullPath: '/components/select'
       preLoaderRoute: typeof ComponentsSelectRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ComponentsRouteRoute
     }
     '/components/button': {
       id: '/components/button'
-      path: '/components/button'
+      path: '/button'
       fullPath: '/components/button'
       preLoaderRoute: typeof ComponentsButtonRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ComponentsRouteRoute
     }
   }
 }
 
-const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+interface ComponentsRouteRouteChildren {
+  ComponentsButtonRoute: typeof ComponentsButtonRoute
+  ComponentsSelectRoute: typeof ComponentsSelectRoute
+  ComponentsIndexRoute: typeof ComponentsIndexRoute
+}
+
+const ComponentsRouteRouteChildren: ComponentsRouteRouteChildren = {
   ComponentsButtonRoute: ComponentsButtonRoute,
   ComponentsSelectRoute: ComponentsSelectRoute,
   ComponentsIndexRoute: ComponentsIndexRoute,
+}
+
+const ComponentsRouteRouteWithChildren = ComponentsRouteRoute._addFileChildren(
+  ComponentsRouteRouteChildren,
+)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  ComponentsRouteRoute: ComponentsRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

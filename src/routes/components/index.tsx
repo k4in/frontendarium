@@ -1,33 +1,16 @@
-import { createFileRoute, Outlet, Link } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { useEffect } from 'react';
 
 export const Route = createFileRoute('/components/')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return (
-    <div className="grid grid-cols-[12rem_1fr] h-full">
-      <nav className="flex flex-col gap-4 border-r py-2 md:py-10">
-        <Link
-          to="/components/button"
-          activeProps={{
-            className: 'font-bold',
-          }}
-          activeOptions={{ exact: true }}
-        >
-          Button
-        </Link>
-        <Link
-          to="/components/select"
-          activeProps={{
-            className: 'font-bold',
-          }}
-          activeOptions={{ exact: true }}
-        >
-          Select
-        </Link>
-      </nav>
-      <Outlet />
-    </div>
-  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate({ to: '/components/button' });
+  });
+
+  return null;
 }

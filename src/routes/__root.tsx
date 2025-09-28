@@ -13,7 +13,7 @@ function RootComponent() {
   return (
     <>
       <Header />
-      <div className="container mx-auto">
+      <div className="container px-2 mx-auto">
         <Outlet />
       </div>
       <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
