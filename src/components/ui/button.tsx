@@ -39,7 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       ref={ref}
       type={type}
       className={cn(
-        'relative flex items-center justify-center rounded transition-colors font-semibold',
+        'relative flex items-center justify-center rounded transition-colors',
         variant !== 'ghost' && 'shadow',
         INTERACTIVE_STYLES,
         sizeClasses[size],

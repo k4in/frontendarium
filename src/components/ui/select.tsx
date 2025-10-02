@@ -30,13 +30,13 @@ export function SelectComponent() {
       </Select.Trigger>
       <Select.Portal>
         <Select.Positioner className="outline-none select-none z-10">
-          <Select.ScrollUpArrow className="border-t border-x top-0 z-[1] flex h-4 w-full cursor-default items-center text-primary justify-center bg-background text-center text-xs" />
+          <Select.ScrollUpArrow className="border-t border-x top-0 z-[1] flex h-4 w-full cursor-default items-center text-foreground justify-center bg-background text-center text-xs" />
           <Select.Popup className="outline-none min-w-60 max-h-[var(--available-height)] overflow-y-auto rounded-md bg-background text-foreground border shadow">
             {fonts.map(({ label, value }) => (
               <Select.Item
                 key={label}
                 value={value}
-                className="grid min-w-[var(--anchor-width)] cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 px-2 text-sm outline-none select-none data-[highlighted]:bg-accent"
+                className="grid min-w-[var(--anchor-width)] cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 px-2 text-sm outline-none select-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground"
               >
                 <Select.ItemIndicator className="col-start-1">
                   <Check className="size-4" />
@@ -45,7 +45,7 @@ export function SelectComponent() {
               </Select.Item>
             ))}
           </Select.Popup>
-          <Select.ScrollDownArrow className="border-b border-x bottom-0 z-[1] flex h-4 w-full cursor-default items-center justify-center bg-background text-center text-xs" />
+          <Select.ScrollDownArrow className="text-foreground border-b border-x bottom-0 z-[1] flex h-4 w-full cursor-default items-center justify-center bg-background text-center text-xs" />
         </Select.Positioner>
       </Select.Portal>
     </Select.Root>
