@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils/cn';
 import { INTERACTIVE_STYLES } from '@/lib/base-styles';
 import { LoaderIcon } from 'lucide-react';
 
-type ButtonVariants = 'primary' | 'ghost' | 'destructive';
+type ButtonVariants = 'primary' | 'ghost' | 'destructive' | 'success';
 type ButtonSizes = 'default' | 'large' | 'icon' | 'bigIcon';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -18,6 +18,7 @@ const variantClasses: Record<ButtonVariants, string> = {
   primary: 'bg-primary text-primary-foreground hover:bg-primary/85',
   ghost: 'bg-transparent text-foreground hover:bg-muted',
   destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/85',
+  success: 'bg-success text-success-foreground hover:bg-success/85',
 };
 
 const sizeClasses: Record<ButtonSizes, string> = {
@@ -54,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         <span
           className={cn(
             'absolute inset-0 flex items-center justify-center text-primary-foreground',
-            variant === 'ghost' && isLoading && 'text-primary'
+            variant === 'ghost' && isLoading && 'text-muted-foreground'
           )}
           aria-hidden="true"
         >

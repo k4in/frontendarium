@@ -15,6 +15,7 @@ function RouteComponent() {
   const [primaryBigIconButtonLoading, setPrimaryBigIconButtonLoading] = useState(false);
 
   const [destructiveDefaultButtonLoading, setDestructiveDefaultButtonLoading] = useState(false);
+  const [successDefaultButtonLoading, setSuccessDefaultButtonLoading] = useState(false);
   const [ghostDefaultButtonLoading, setGhostDefaultButtonLoading] = useState(false);
 
   return (
@@ -72,6 +73,17 @@ function RouteComponent() {
           Destructive Default
         </Button>
         <p>variant: destructive, size: default</p>
+      </div>
+      <div className="grid grid-cols-2 mt-4">
+        <Button
+          className="justify-self-start"
+          onClick={() => simulateLoading(setSuccessDefaultButtonLoading)}
+          isLoading={successDefaultButtonLoading}
+          variant="success"
+        >
+          Success Default
+        </Button>
+        <p>variant: success, size: default</p>
       </div>
       <div className="grid grid-cols-2">
         <Button
