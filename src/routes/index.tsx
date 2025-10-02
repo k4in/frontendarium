@@ -101,15 +101,6 @@ function Index() {
               </div>
             </article>
           ))}
-        <div className="bg-primary text-primary-foreground p-4 rounded">primary</div>
-        <div className="bg-secondary text-secondary-foreground p-4 rounded">secondary</div>
-        <div className="bg-muted text-muted-foreground p-4 rounded">muted</div>
-        <div className="bg-card text-card-foreground p-4 rounded hover:bg-accent hover:text-accent-foreground transition-colors">
-          accent (hover)
-        </div>
-        <div className="bg-background text-foreground border rounded p-4">background</div>
-        <div className="card text-destructive">destructive</div>
-        <div className="card text-success">success</div>
       </div>
     </div>
   );

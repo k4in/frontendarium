@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { SelectComponent } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
+import { ComboboxComponent } from '@/components/ui/combobox';
 
 export const Route = createFileRoute('/components/select')({
   component: RouteComponent,
@@ -8,9 +8,9 @@ export const Route = createFileRoute('/components/select')({
 
 function RouteComponent() {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center flex-col gap-6">
       <SelectComponent />
-      <Button>Hello</Button>
+      <ComboboxComponent />
     </div>
   );
 }
